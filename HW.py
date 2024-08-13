@@ -85,6 +85,7 @@ print(net) # network architecture
 
 optimizer = torch.optim.Adam(net.parameters(), lr=0.001)
 loss_func = torch.nn.CrossEntropyLoss() # 已經包含了 sigmoid or softmax
+loo = LeaveOneOut()
 
 for t in range(50):
     out = net(train_x_tensor)
@@ -94,8 +95,7 @@ for t in range(50):
     loss.backward()
     optimizer.step()
 
-    if t % 5 == 0:
-        prediction = torch.max(out, 1)[1]
+    prediction = torch.max(out, 1)[1]
     y_pred = prediction.numpy()
     y_true = train_y_tensor.numpy()
 
